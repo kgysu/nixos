@@ -119,6 +119,7 @@
     alacritty
     zsh
     git
+    #lazygit
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
