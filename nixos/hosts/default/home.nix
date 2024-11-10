@@ -6,6 +6,7 @@
     ./../../modules/home-manager/oh-my-posh.nix
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/tmux.nix
+    ./../../modules/home-manager/nvim/neovim.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -25,7 +26,22 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.lf
+    pkgs.fzf
+    pkgs.bat
+    pkgs.tldr
     pkgs.lazygit
+    pkgs.ripgrep
+
+    # Desktop
+    pkgs.alacritty
+
+    # DEV Languages
+    pkgs.gcc
+    #pkgs.clang
+    pkgs.gnumake
+    pkgs.zig
+    pkgs.go
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -75,6 +91,10 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  home.sessionPath = [
+    "$HOME/go/bin"
+  ];
 
   # Programs
 
