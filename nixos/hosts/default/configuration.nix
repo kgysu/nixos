@@ -119,6 +119,7 @@
     alacritty
     zsh
     git
+    tldr
     #lazygit
   ];
 
