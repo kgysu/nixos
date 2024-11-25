@@ -21,6 +21,15 @@
             inputs.home-manager.nixosModules.default
           ];
         };
+
+        test = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [
+            ./hosts/test/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+
 	wsl = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
           system = "x86_64-linux";
