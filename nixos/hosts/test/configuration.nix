@@ -8,7 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../../modules/nixos/default.nix
+      ./../../modules/nixos/default-desktop.nix
+      ./../../modules/users/default.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -83,20 +85,27 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    isNormalUser = true;
-    description = "user";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
+  #users.users.user = {
+  #  isNormalUser = true;
+  #  description = "user";
+  #  extraGroups = [ "networkmanager" "wheel" ];
+  #  packages = with pkgs; [
+  #  #  thunderbird
+  #  ];
+  #};
 
   # Install firefox.
-  programs.firefox.enable = true;
+  #programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "main" = import ./home.nix;
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
