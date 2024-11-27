@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../../modules/nixos/default-desktop.nix
       ./../../modules/users/default.nix
@@ -106,6 +107,13 @@
       "main" = import ./home.nix;
     };
   };
+
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-maps
+    gnome-weather
+    epiphany
+  ];
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

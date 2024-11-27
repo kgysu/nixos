@@ -8,9 +8,6 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      l = "ls -lh";
-      ll = "ls -lah";
-      update = "sudo nixos-rebuild switch --flake /etc/nixos#default";
     };
     history = {
       size = 10000;

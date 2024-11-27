@@ -24,6 +24,10 @@
     gnumake
     zig
     go
+    rustc
+    cargo
+    rustfmt
+    clippy
    ];
   
 
