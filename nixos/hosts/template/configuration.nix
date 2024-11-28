@@ -2,14 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-      ./main-user.nix
+      ./local.nix
     ];
 
   # Bootloader.
@@ -19,12 +18,6 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # own user config
-  main-user.enable = true;
-  main-user.userName = "user";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -38,6 +31,18 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_CH.UTF-8";
+    LC_IDENTIFICATION = "de_CH.UTF-8";
+    LC_MEASUREMENT = "de_CH.UTF-8";
+    LC_MONETARY = "de_CH.UTF-8";
+    LC_NAME = "de_CH.UTF-8";
+    LC_NUMERIC = "de_CH.UTF-8";
+    LC_PAPER = "de_CH.UTF-8";
+    LC_TELEPHONE = "de_CH.UTF-8";
+    LC_TIME = "de_CH.UTF-8";
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -53,7 +58,7 @@
   };
 
   # Configure console keymap
-  #console.keyMap = "dvorak";
+  console.keyMap = "dvorak";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -78,45 +83,28 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-#  users.users.user = {
-#    isNormalUser = true;
-#    description = "Default User";
-#    extraGroups = [ "networkmanager" "wheel" ];
-#    packages = with pkgs; [
-#      vim
-#      neovim
-#      firefox
-#      zsh
+  #users.users.main = {
+  #  isNormalUser = true;
+  #  description = "main";
+  #  extraGroups = [ "networkmanager" "wheel" ];
+  #  packages = with pkgs; [
     #  thunderbird
-#    ];
-#  };
-
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      "user" = import ./home.nix;
-    };
-  };
+  #  ];
+  #};
 
   # Install firefox.
-  programs.firefox.enable = true;
-  programs.zsh.enable = true;
+  #programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    curl
-    zsh
-    git
-    gnutar
-    unzip
-  ];
+  #environment.systemPackages = with pkgs; [
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
+  #  git
+  #];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

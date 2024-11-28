@@ -4,6 +4,7 @@
   imports = [
     ./nix-settings.nix
     ./env.nix
-    ./programs.nix
+    ./zsh.nix
+    ./tmux.nix
   ];
 }

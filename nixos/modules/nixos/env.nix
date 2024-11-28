@@ -35,13 +35,6 @@
 
     shells = [ pkgs.zsh ];
 
-    # Todo: move aliases to here
-    shellAliases = {
-      l = "ls -lh";
-      ll = "ls -lah";
-      nix-switch = "sudo nixos-rebuild switch --flake /etc/nixos#test";
-    };
-
     homeBinInPath = true;
     localBinInPath = true;
   };

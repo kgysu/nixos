@@ -10,35 +10,27 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs: 
+  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs:
     {
       # Default Machine
       nixosConfigurations = {
-        default = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+        template = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/default/configuration.nix
+            ./hosts/template/configuration.nix
             inputs.home-manager.nixosModules.default
           ];
         };
 
-        test = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [
-            ./hosts/test/configuration.nix
-            inputs.home-manager.nixosModules.default
-          ];
-        };
-
-	wsl = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+        wsl = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
-	    ./hosts/wsl/configuration.nix
-	    inputs.home-manager.nixosModules.default
+            ./hosts/wsl/configuration.nix
+            inputs.home-manager.nixosModules.default
             nixos-wsl.nixosModules.wsl
-	  ];
-	};
+          ];
+        };
       };
     };
 
