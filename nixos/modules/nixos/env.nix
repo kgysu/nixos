@@ -2,34 +2,36 @@
 
 {
   environment = {
-   systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    curl
-    lf
-    zsh
-    git
-    gnutar
-    unzip
-    (nerdfonts.override { fonts = [ "Meslo" "JetBrainsMono" ]; })
+    systemPackages = with pkgs; [
+      vim
+      wget
+      curl
+      lf
+      zsh
+      git
+      gnutar
+      unzip
+      (nerdfonts.override { fonts = [ "Meslo" "JetBrainsMono" ]; })
 
-    fzf
-    bat
-    tldr
-    lazygit
-    ripgrep
+      fzf
+      bat
+      tldr
+      lazygit
+      ripgrep
+      pass
 
-    # Dev
-    gcc
-    gnumake
-    zig
-    go
-    rustc
-    cargo
-    rustfmt
-    clippy
-   ];
-  
+      # Dev
+      gcc
+      gnumake
+      zig
+      go
+      rustc
+      cargo
+      rustfmt
+      clippy
+      lua
+    ];
+
 
     shells = [ pkgs.zsh ];
 
