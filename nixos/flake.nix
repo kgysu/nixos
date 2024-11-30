@@ -22,6 +22,14 @@
           ];
         };
 
+        skull = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/skull/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+
         wsl = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
