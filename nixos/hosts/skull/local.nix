@@ -5,6 +5,7 @@
     ./../../modules/users/default.nix
     ./../../modules/nixos/default.nix
     ./../../modules/nixos/desktop/default.nix
+    ./../../modules/nixos/desktop/hyprland.nix
     inputs.home-manager.nixosModules.default
   ];
 
