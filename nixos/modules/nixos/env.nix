@@ -19,6 +19,7 @@
       lazygit
       ripgrep
       pass
+      fd
 
       # Dev
       gcc

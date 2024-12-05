@@ -8,7 +8,7 @@
     #
     # Allows extra capabilities providied by nvim-cmp
     # https://nix-community.github.io/nixvim/plugins/cmp-nvim-lsp.html
-    plugins.cmp-nvim-lsp = {
+   plugins.cmp-nvim-lsp = {
       enable = true;
     };
 
@@ -111,6 +111,10 @@
             };
           };
         };
+
+        nixd = {
+          enable = true;
+        };
       };
 
       keymaps = {
@@ -130,7 +134,7 @@
             #mode = "n";
             action = "goto_next";
             desc = "Diagnostic: Goto next";
-          };
+        };
           "]d" = {
             #mode = "n";
             action = "goto_prev";

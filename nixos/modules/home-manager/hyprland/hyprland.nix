@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   startupScript = pkgs.writeShellScriptBin "start-hypr" ''
@@ -22,13 +27,11 @@ in
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = ",preferred,auto,auto";
 
-
       # Set programs that you use
       "$terminal" = "kitty";
       "$fileManager" = "dolphin";
       #$menu = wofi --show drun
       "$menu" = "rofi -show drun -show-icons";
-
 
       # See https://wiki.hyprland.org/Configuring/Environment-variables/
       env = [
@@ -36,7 +39,6 @@ in
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
       ];
-
 
       #####################
       ### LOOK AND FEEL ###
@@ -108,16 +110,13 @@ in
 
       # https://wiki.hyprland.org/Configuring/Variables/#misc
       misc = {
-        force_default_wallpaper = -1; # Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = false; # If true disables the random hyprland logo / anime girl background. :(
+        force_default_wallpaper = 0; # Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo = true; # If true disables the random hyprland logo / anime girl background. :(
       };
 
       debug = {
         disable_logs = false;
       };
-
-
-
 
       #############
       ### INPUT ###
@@ -126,7 +125,7 @@ in
       # https://wiki.hyprland.org/Configuring/Variables/#input
       input = {
         kb_layout = "us";
-        kb_variant = "";
+        kb_variant = "alt-int";
         kb_model = "";
         kb_options = "";
         kb_rules = "";
@@ -140,9 +139,6 @@ in
         };
       };
 
-
-
-
       ###################
       ### KEYBINDINGS ###
       ###################
@@ -151,45 +147,44 @@ in
       "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-      bind = [
-        "$mainMod, Q, exec, $terminal"
-        "$mainMod, C, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod, E, exec, $fileManager"
-        "$mainMod, V, togglefloating,"
-        "$mainMod, R, exec, $menu"
-        "$mainMod, P, pseudo," # dwindle
-        "$mainMod, J, togglesplit," # dwindle
+      bind =
+        [
+          "$mainMod, Q, exec, $terminal"
+          "$mainMod, C, killactive,"
+          "$mainMod, M, exit,"
+          "$mainMod, E, exec, $fileManager"
+          "$mainMod, V, togglefloating,"
+          "$mainMod, R, exec, $menu"
+          "$mainMod, P, pseudo," # dwindle
+          "$mainMod, J, togglesplit," # dwindle
 
-        # Move focus with mainMod + arrow keys
-        "$mainMod, left, movefocus, h"
-        "$mainMod, right, movefocus, l"
-        "$mainMod, up, movefocus, k"
-        "$mainMod, down, movefocus, j"
+          # Move focus with mainMod + arrow keys
+          "$mainMod, left, movefocus, l"
+          "$mainMod, right, movefocus, r"
+          "$mainMod, up, movefocus, u"
+          "$mainMod, down, movefocus, d"
 
-        # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+          # Scroll through existing workspaces with mainMod + scroll
+          "$mainMod, mouse_down, workspace, e+1"
+          "$mainMod, mouse_up, workspace, e-1"
 
-        # Move/resize windows with mainMod + LMB/RMB and dragging
-        "$mainMod, mouse:272, movewindow"
-        #"$mainMod, mouse:273, resizewindow"
-      ]
-      # Switch workspaces with mainMod + [0-9]
-      ++ (
-        builtins.concatLists (builtins.genList
-          (i:
-            let ws = i + 1;
+          # Move/resize windows with mainMod + LMB/RMB and dragging
+          "$mainMod, mouse:272, movewindow"
+          #"$mainMod, mouse:273, resizewindow"
+        ]
+        # Switch workspaces with mainMod + [0-9]
+        ++ (builtins.concatLists (
+          builtins.genList (
+            i:
+            let
+              ws = i + 1;
             in
             [
               "$mainMod, ${toString ws}, workspace, ${toString ws}"
               "$mainMod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
             ]
-          )
-          9)
-      );
-
-
+          ) 9
+        ));
 
       ##############################
       ### WINDOWS AND WORKSPACES ###
@@ -208,9 +203,12 @@ in
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
 
-
       # Exec
       exec-once = ''${startupScript}/bin/start-hypr'';
     };
   };
+
+  imports = [
+    ./waybar2.nix
+  ];
 }
