@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -8,11 +7,12 @@
 let
   startupScript = pkgs.writeShellScriptBin "start-hypr" ''
     ${pkgs.waybar}/bin/waybar &
-    ${pkgs.swww}/bin/swww &
+    # ${pkgs.swww}/bin/swww &
+    ${pkgs.hyprpaper}/bin/hyprpaper &
 
-    sleep 1
+    # sleep 1
 
-    ${pkgs.swww}/bin/swww img ${./wallpaper.jpg} &
+    # ${pkgs.swww}/bin/swww img ${./wallpaper.jpg} &
 
     ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
 
@@ -125,7 +125,7 @@ in
       # https://wiki.hyprland.org/Configuring/Variables/#input
       input = {
         kb_layout = "us";
-        kb_variant = "alt-int";
+        kb_variant = "intl";
         kb_model = "";
         kb_options = "";
         kb_rules = "";
@@ -165,11 +165,11 @@ in
           "$mainMod, down, movefocus, d"
 
           # Scroll through existing workspaces with mainMod + scroll
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up, workspace, e-1"
+          # "$mainMod, mouse_down, workspace, e+1"
+          # "$mainMod, mouse_up, workspace, e-1"
 
           # Move/resize windows with mainMod + LMB/RMB and dragging
-          "$mainMod, mouse:272, movewindow"
+          # "$mainMod, mouse:272, movewindow"
           #"$mainMod, mouse:273, resizewindow"
         ]
         # Switch workspaces with mainMod + [0-9]
@@ -208,7 +208,15 @@ in
     };
   };
 
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      preload = [ "/home/main/wallpaper.jpg" ];
+      wallpaper = [ "/home/main/wallpaper.jpg" ];
+    };
+  };
+
   imports = [
-    ./waybar2.nix
+    ./waybar.nix
   ];
 }

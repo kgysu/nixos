@@ -10,11 +10,11 @@
     enable = true;
 
     settings = {
-      mainBar = builtins.fromJSON (builtins.readFile ./waybar-conf.json);
+      mainBar = builtins.fromJSON (builtins.readFile ./waybar2.json);
     };
 
     style = ''
-      ${builtins.readFile ./waybar.css}
+      ${builtins.readFile ./waybar2.css}
     '';
   };
 }

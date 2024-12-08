@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   programs.hyprland.enable = true;
@@ -9,7 +15,7 @@
     dunst
     libnotify
 
-    #hyprpaper
+    hyprpaper
     swww
 
     rofi-wayland
