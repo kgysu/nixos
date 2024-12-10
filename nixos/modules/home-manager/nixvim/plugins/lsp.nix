@@ -32,83 +32,30 @@
       };
     };
 
-    # Brief aside: **What is LSP?**
-    #
-    # LSP is an initialism you've probably heard, but might not understand what it is.
-    #
-    # LSP stands for Language Server Protocol. It's a protocol that helps editors
-    # and language tooling communicate in a standardized fashion.
-    #
-    # In general, you have a "server" which is some tool built to understand a particular
-    # language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-    # (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-    # processes that communicate with some "client" - in this case, Neovim!
-    #
-    # LSP provides Neovim with features like:
-    #  - Go to definition
-    #  - Find references
-    #  - Autocompletion
-    #  - Symbol Search
-    #  - and more!
-    #
-    # Thus, Language Servers are external tools that must be installed separately from
-    # Neovim which are configured below in the `server` section.
-    #
-    # If you're wondering about lsp vs treesitter, you can check out the wonderfully
-    # and elegantly composed help section, `:help lsp-vs-treesitter`
-    #
     # https://nix-community.github.io/nixvim/plugins/lsp/index.html
     plugins.lsp = {
       enable = true;
 
-      # Enable the following language servers
-      #  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      #
-      #  Add any additional override configuration in the following tables. Available keys are:
-      #  - cmd: Override the default command used to start the server
-      #  - filetypes: Override the default list of associated filetypes for the server
-      #  - capabilities: Override fields in capabilities. Can be used to disable certain LSP features.
-      #  - settings: Override the default settings passed when initializing the server.
-      #        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       servers = {
         clangd = {
          enable = true;
         };
-        gopls = {
+        
+	gopls = {
          enable = true;
         };
-        # pyright = {
-        #  enable = true;
-        #}
-        # rust_analyzer = {
-        #  enable = true;
-        #}
-        # ...etc. See `https://nix-community.github.io/nixvim/plugins/lsp` for a list of pre-configured LSPs
-        #
-        # Some languages (like typscript) have entire language plugins that can be useful:
-        #    `https://nix-community.github.io/nixvim/plugins/typescript-tools/index.html?highlight=typescript-tools#pluginstypescript-toolspackage`
-        #
-        # But for many setups the LSP (`tsserver`) will work just fine
-        # tsserver = {
-        #  enable = true;
-        #}
 
         lua_ls = {
           enable = true;
-
-          # cmd = {
-          #};
-          # filetypes = {
-          #};
           settings = {
             completion = {
               callSnippet = "Replace";
             };
-            diagnostics = {
-             disable = [
-               "missing-fields"
-             ];
-            };
+            # diagnostics = {
+            #  disable = [
+            #    "missing-fields"
+            #  ];
+            # };
           };
         };
 
@@ -120,11 +67,11 @@
       keymaps = {
         # Diagnostic keymaps
         diagnostic = {
-          "<leader>ql" = {
-            #mode = "n";
-            action = "setloclist";
-            desc = "Open diagnostic [Q]uickfix [L]ist";
-          };
+          # "<leader>ql" = {
+          #   #mode = "n";
+          #   action = "setloclist";
+          #   desc = "Open diagnostic [Q]uickfix [L]ist";
+          # };
           "<leader>vd" = {
             #mode = "n";
             action = "open_float";
@@ -254,30 +201,7 @@
         };
       };
 
-      # LSP servers and clients are able to communicate to each other what features they support.
-      #  By default, Neovim doesn't support everything that is in the LSP specification.
-      #  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-      #  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      # NOTE: This is done automatically by Nixvim when enabling cmp-nvim-lsp below is an example if you did want to add new capabilities
-      #capabilities = ''
-      #  capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      #'';
-
-      # This function gets run when an LSP attaches to a particular buffer.
-      #   That is to say, every time a new file is opened that is associated with
-      #   an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      #   function will be executred to configure the current buffer
-      # NOTE: This is an example of an attribute that takes raw lua
       onAttach = ''
-        -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-        -- to define small helper and utility functions so you don't have to repeat yourself.
-        --
-        -- In this case, we create a function that lets us more easily define mappings specific
-        -- for LSP related items. It sets the mode, buffer and description for us each time.
-        local map = function(keys, func, desc)
-          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
-        end
-
         -- The following two autocommands are used to highlight references of the
         -- word under the cursor when your cursor rests there for a little while.
         --    See `:help CursorHold` for information about when this is executed
@@ -305,16 +229,6 @@
             end,
           })
         end
-
-        -- The following autocommand is used to enable inlay hints in your
-        -- code, if the language server you are using supports them
-        --
-        -- This may be unwanted, since they displace some of your code
-        --if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-        --  map('<leader>th', function()
-        --    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-        --  end, '[T]oggle Inlay [H]ints')
-        --end
       '';
     };
   };

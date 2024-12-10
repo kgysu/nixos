@@ -2,24 +2,16 @@
 
 {
   imports = [
-    # NOTE: The first thing you will want to do is uncommented on of the three imports below
-    # depending on which module you chose to use to install Nixvim.
-    #
-    # Uncomment if you are using the home-manager module
     inputs.nixvim.homeManagerModules.nixvim
-    # Uncomment if you are using the nixos module
-    #inputs.nixvim.nixosModules.nixvim
-    # Uncomment if you are using the nix-darwin module
-    #inputs.nixvim.nixDarwinModules.nixvim
 
     # Plugins
-    #./plugins/gitsigns.nix
+    ./plugins/gitsigns.nix
     #./plugins/which-key.nix
     ./plugins/telescope.nix
     ./plugins/conform.nix
     ./plugins/lsp.nix
     ./plugins/nvim-cmp.nix
-    ./plugins/mini.nix
+    # ./plugins/mini.nix
     ./plugins/treesitter.nix
 
     # NOTE: Add/Configure additional plugins for Kickstart.nixvim
@@ -40,83 +32,6 @@
     ./plugins/harpoon.nix
   ];
 
-  /*
-    =====================================================================
-    ==================== READ THIS BEFORE CONTINUING ====================
-    =====================================================================
-    ========                                    .-----.          ========
-    ========         .----------------------.   | === |          ========
-    ========         |.-""""""""""""""""""-.|   |-----|          ========
-    ========         ||                    ||   | === |          ========
-    ========         ||  KICKSTART.NIXVIM  ||   |-----|          ========
-    ========         ||                    ||   | === |          ========
-    ========         ||                    ||   |-----|          ========
-    ========         ||:Tutor              ||   |:::::|          ========
-    ========         |'-..................-'|   |____o|          ========
-    ========         `"")----------------(""`   ___________      ========
-    ========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-    ========       /:::========|  |==hjkl==:::\  \ required \    ========
-    ========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-    ========                                                     ========
-    =====================================================================
-    =====================================================================
-
-    What is Kickstart.nixvim?
-
-      Kickstart.nixvim is a starting point for your own configuration.
-        The goal is that you can read every line of code, top-to-bottom, understand
-        what your configuration is doing, and modify it to suit your needs.
-
-        Once you've done that, you can start exploring, configuring and tinkering to
-        make Neovim your own!
-
-        If you don't know anything about Nixvim, Nix or Lua, I recommend taking some time to read through.
-          - https://nix-community.github.io/nixvim/
-          - https://learnxinyminutes.com/docs/nix/
-          - https://learnxinyminutes.com/docs/lua/
-
-    Kickstart.nixvim Guide:
-
-      TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-        If you don't know what this means, type the following:
-          - <escape key>
-          - :
-          - Tutor
-          - <enter key>
-
-        (If you already know the Neovim basics, you can skip this step.)
-
-      Once you've completed that, you can continue working through **AND READING** the rest
-      of the nixvim.nix.
-
-      Next, run AND READ `:help`.
-        This will open up a help window with some basic information
-        about reading, navigating and searching the builtin help documentation.
-
-        This should be the first place you go to look when you're stuck or confused
-        with something. It's one of my favorite Neovim features.
-
-        MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-        which is very useful when you're not exactly sure of what you're looking for.
-
-      I have left several `:help X` comments throughout the nixvim.nix and the plugin .nix files
-        These are hints about where to find more information about the relevant settings,
-        plugins or Neovim features used in Kickstart.nixvim.
-
-       NOTE: Look for lines like this
-
-        Throughout the file. These are for you, the reader, to help you understand what is happening.
-        Feel free to delete them once you know what you're doing, but they should serve as a guide
-        for when you are first encountering a few different constructs in your Nixvim Neovim config.
-
-    If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-    I hope you enjoy your Neovim journey,
-    - JMartJonesy
-
-    P.S. You can delete this when you're done too. It's your config now! :)
-  */
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -127,23 +42,16 @@
       nixfmt-rfc-style
     ];
 
-    # You can easily change to a different colorscheme.
-    # Add your colorscheme here and enable it.
-    # Don't forget to disable the colorschemes you arent using
-    #
-    # If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     colorschemes = {
       # https://nix-community.github.io/nixvim/colorschemes/tokyonight/index.html
       tokyonight = {
         enable = true;
         settings = {
-          # Like many other themes, this one has different styles, and you could load
-          # any other, such as 'storm', 'moon', or 'day'.
           style = "night";
         };
       };
       gruvbox = {
-        enable = false;
+        enable = true;
         settings = {
           terminal_colors = true;
           undercurl = true;
@@ -170,12 +78,13 @@
         };
       };
       rose-pine = {
-        enable = false;
+        enable = true;
         settings = {
-          dysable_background = true;
+          disable_background = true;
         };
       };
     };
+    colorscheme = "rose-pine";
 
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=globals#globals
     globals = {
@@ -184,11 +93,6 @@
       have_nerd_font = true;
     };
 
-    # [[ Setting options ]]
-    # See `:help vim.opt`
-    # NOTE: You can change these options as you wish!
-    #  For more options, you can see `:help option-list`
-    # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=globals#opts
     opts = {
       number = true;
       relativenumber = true;
@@ -199,28 +103,32 @@
           wl-copy.enable = true; # For Wayland
           xsel.enable = true; # For X11
         };
-        register = "unnamedplus";
+        # register = "unnamedplus";
       };
       breakindent = true;
       undofile = true;
       ignorecase = true;
       smartcase = true;
       signcolumn = "yes";
-      updatetime = 250;
+      updatetime = 50;
       timeoutlen = 300;
       splitright = true;
       splitbelow = true;
-      list = true;
+      list = false;
       listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
       inccommand = "split";
       cursorline = true;
       scrolloff = 10;
       # See `:help hlsearch`
       hlsearch = true;
+      incsearch = true;
       expandtab = true;
       tabstop = 2;
       softtabstop = 2;
       shiftwidth = 2;
+      smartindent = true;
+      termguicolors = true;
+      colorcolumn = "80";
     };
 
     # [[ Basic Keymaps ]]
@@ -310,10 +218,26 @@
       }
       {
         mode = "n";
-        key = "<C-u>";
+        key = "<C-t>";
         action = "<C-u>zz";
         options = {
           desc = "Go up and center view";
+        };
+      }
+      {
+        mode = "n";
+        key = "n";
+        action = "nzzzv";
+        options = {
+          desc = "Next search and center view";
+        };
+      }
+      {
+        mode = "n";
+        key = "N";
+        action = "Nzzzv";
+        options = {
+          desc = "Prev search and center view";
         };
       }
       {
@@ -327,7 +251,7 @@
       {
         mode = "v";
         key = "J";
-        action = ">+1<CR>gv=gv";
+        action = ":m '>+1<CR>gv=gv";
         options = {
           desc = "Move line down";
         };
@@ -335,9 +259,79 @@
       {
         mode = "v";
         key = "K";
-        action = "<-2<CR>gv=gv";
+        action = ":m '<-2<CR>gv=gv";
         options = {
           desc = "Move line up";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>git";
+        action = "<cmd>LazyGit<CR>";
+        options = {
+          desc = "Open Lazygit";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>u";
+        action = "<cmd>UndotreeShow<CR>";
+        options = {
+          desc = "Open Undotree";
+        };
+      }
+      {
+        mode = "x";
+        key = "<leader>p";
+        action = "\"_dP";
+        options = {
+          desc = "Paste";
+        };
+      }
+      {
+        mode = [
+          "n"
+          "v"
+        ];
+        key = "<leader>y";
+        action = "\"+y";
+        options = {
+          desc = "Copy to unnamedplus";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>Y";
+        action = "\"+Y";
+        options = {
+          desc = "Copy to unnamedplus";
+        };
+      }
+      {
+        mode = [
+          "n"
+          "v"
+        ];
+        key = "<leader>d";
+        action = "\"_d";
+        options = {
+          desc = "Delete to void";
+        };
+      }
+      {
+        mode = "n";
+        key = "Q";
+        action = "<nop>";
+        options = {
+          desc = "-";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>r";
+        action = ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>";
+        options = {
+          desc = "Replace Word";
         };
       }
     ];
@@ -376,8 +370,10 @@
           function()
             if vim.bo.filetype == "zig" then
               vim.cmd.colorscheme("gruvbox")
-            else
+            elseif vim.bo.filetype == "go" or vim.bo.filetype == "lua" then
               vim.cmd.colorscheme("tokyonight-night")
+            else
+              vim.cmd.colorscheme("rose-pine")
             end
           end
         '';
@@ -385,10 +381,7 @@
     ];
 
     plugins = {
-      # Adds icons for plugins to utilize in ui
       web-devicons.enable = true;
-
-      # Detect tabstop and shiftwidth automatically
       # https://nix-community.github.io/nixvim/plugins/sleuth/index.html
       sleuth = {
         enable = true;
@@ -410,7 +403,6 @@
       nvim-web-devicons # TODO: Figure out how to configure using this with telescope
     ];
 
-    # TODO: Figure out where to move this
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=extraplugins#extraconfigluapre
     extraConfigLuaPre = ''
       if vim.g.have_nerd_font then

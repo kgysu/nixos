@@ -20,6 +20,7 @@
       ripgrep
       pass
       fd
+      file
 
       # Dev
       gcc

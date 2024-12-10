@@ -3,7 +3,7 @@
     plugins.lazygit = {
       enable = true;
 
-      #keymaps = {
+      # keymaps = {
       #  "<leader>git" = {
       #    mode = "n";
       #    action = ":LazyGit<CR>";
@@ -11,7 +11,7 @@
       #      desc = "Open LazyGit";
       #    };
       #  };
-      #};
+      # };
     };
   };
 }

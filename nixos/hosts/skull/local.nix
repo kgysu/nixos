@@ -6,6 +6,7 @@
     ./../../modules/nixos/default.nix
     ./../../modules/nixos/desktop/default.nix
     ./../../modules/nixos/desktop/hyprland.nix
+    # ./../../modules/nixos/neovim.nix
     inputs.home-manager.nixosModules.default
   ];
 

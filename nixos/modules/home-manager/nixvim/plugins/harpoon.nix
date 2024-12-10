@@ -6,10 +6,10 @@
 
       keymaps = {
         addFile = "<leader>a";
-        cmdToggleQuickMenu = "<C-0>";
-        navNext = "<leader>n";
-        navPrev = "<leader>p";
-        toggleQuickMenu = "<C-e>";
+        # cmdToggleQuickMenu = "<C-e>";
+        navNext = "<C-e>";
+        navPrev = "<C-n>";
+        toggleQuickMenu = "<leader>h";
       };
     };
   };
