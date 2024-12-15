@@ -21,6 +21,10 @@
       pass
       fd
       file
+      lshw
+      btop
+      bottom
+      neofetch
 
       # Dev
       gcc

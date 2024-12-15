@@ -27,5 +27,11 @@
     l = "ls -lh";
     ll = "ls -lah";
     nix-switch = "sudo nixos-rebuild switch --flake /etc/nixos#skull";
+    nix-sys-gens = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
+    nix-sys-gens-cleanup = "sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 5d";
+  };
+
+  hardware = {
+    graphics.enable = true;
   };
 }

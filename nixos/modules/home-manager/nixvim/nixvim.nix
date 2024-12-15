@@ -84,7 +84,7 @@
         };
       };
     };
-    colorscheme = "rose-pine";
+    colorscheme = "gruvbox";
 
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=globals#globals
     globals = {
@@ -128,7 +128,7 @@
       shiftwidth = 2;
       smartindent = true;
       termguicolors = true;
-      colorcolumn = "80";
+      colorcolumn = "160";
     };
 
     # [[ Basic Keymaps ]]
@@ -153,6 +153,14 @@
         action = "<C-\\><C-n>";
         options = {
           desc = "Exit terminal mode";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>t";
+        action = ":vp term://zsh";
+        options = {
+          desc = "Open terminal";
         };
       }
       # Keybinds to make split navigation easier.
@@ -370,10 +378,8 @@
           function()
             if vim.bo.filetype == "zig" then
               vim.cmd.colorscheme("gruvbox")
-            elseif vim.bo.filetype == "go" or vim.bo.filetype == "lua" then
-              vim.cmd.colorscheme("tokyonight-night")
             else
-              vim.cmd.colorscheme("rose-pine")
+              vim.cmd.colorscheme("gruvbox")
             end
           end
         '';

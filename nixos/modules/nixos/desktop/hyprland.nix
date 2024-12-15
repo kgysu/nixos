@@ -7,7 +7,11 @@
 }:
 
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+  programs.hyprlock.enable = true;
 
   environment.systemPackages = with pkgs; [
     kitty
@@ -25,6 +29,10 @@
 
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
   ];
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

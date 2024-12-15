@@ -5,6 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/nixos-wsl";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
+    textfox.url = "github:adriankarlen/textfox";
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +17,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-wsl, textfox, ... }@inputs:
     {
       # Default Machine
       nixosConfigurations = {

@@ -165,6 +165,8 @@ in
           "$mainMod, down, movefocus, d"
 
           # Scroll through existing workspaces with mainMod + scroll
+          "$mainMod, T, workspace, e+1"
+          "$mainMod, S, workspace, e-1"
           # "$mainMod, mouse_down, workspace, e+1"
           # "$mainMod, mouse_up, workspace, e-1"
 
